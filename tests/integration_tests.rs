@@ -240,6 +240,12 @@ fn uname() {
 
 #[test]
 #[serial]
+fn mprotect() {
+    run_test("mprotect", 0, None, None, None);
+}
+
+#[test]
+#[serial]
 fn unix_echo() {
     let tmpdir = Arc::new(TempDir::new("unix_echo").unwrap());
     const FILENAME_IN: &'static str = "enarx_unix_echo_to_bin";

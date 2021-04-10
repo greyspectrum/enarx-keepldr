@@ -220,6 +220,24 @@ int uname(struct utsname *buf) {
     return rax;
 }
 
+int mprotect(int fd) {
+    ssize_t rax;
+
+    asm(
+        "syscall"
+        : "=a" (rax)
+        : "a" (SYS_mprotect), "D" (fd)
+        : "%rcx", "%r11"
+    );
+
+    if (rax < 0) {
+        errno = -rax;
+        return -1;
+    }
+
+    return rax;
+}
+
 int socket(int domain, int type, int protocol) {
     int rax;
 
